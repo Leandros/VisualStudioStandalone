@@ -35,12 +35,23 @@ if exist %ARG0% goto err1
 md %ARG0%
 
 :: Create required directory structure and copy over files.
-set SRC=%VS_INSTALL_DIR%\VC\Tools\MSVC\%VS_TOOLS_VERSION%
-set DST=%ARG0%\%VS_TOOLS_VERSION%
-md %DST%\bin\HostX64\x64
-md %DST%\bin\HostX64\x86
+set "SRC=%VS_INSTALL_DIR%\VC\Tools\MSVC\%VS_TOOLS_VERSION%"
+set "DST=%ARG0%\%VS_TOOLS_VERSION%"
+md "%DST%\bin\HostX64\x64"
+md "%DST%\bin\HostX64\x86"
+
+:: Create include files
 xcopy "%SRC%\include" "%DST%\include" /SEYI
-xcopy "%SRC%\lib" "%DST%\lib" /SEYI
+
+:: Create libraries
+md "%DST%\lib\x64"
+md "%DST%\lib\x86"
+xcopy "%SRC%\lib\x64" "%DST%\lib\x64" /Y
+xcopy "%SRC%\lib\x86" "%DST%\lib\x86" /Y
+
+:: Removing ConcRT & Universal RunTime
+del "%DST%\lib\x64\msvcurt*.*" "%DST%\lib\x64\libconc*.*" "%DST%\lib\x64\conc*.*"
+del "%DST%\lib\x86\msvcurt*.*" "%DST%\lib\x86\libconc*.*" "%DST%\lib\x86\conc*.*"
 
 :: Create HOSTX64 toolchain.
 set TOOLCHAIN=bin\HostX64\x64
