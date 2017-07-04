@@ -38,10 +38,10 @@ $ .\vs2017.bat portableVS
 
 # Configuration
 
-Currently the distribution excludes all `HostX64` files, since there is currently
-no clear advantage of using the compiler compiled as native x64, if you still would
+Currently the distribution excludes all `HostX86` files, since there is a clear
+advantage of using the x64 compiler as opposed to the x86, if you still would
 like to use it, you can go into the `vs2017.bat` script and uncomment the section
-creating the x64 distribution.
+creating the x86 distribution.
 
 # TODO
 
