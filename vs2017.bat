@@ -37,13 +37,15 @@ md %ARG0%
 :: Create required directory structure and copy over files.
 set SRC=%VS_INSTALL_DIR%\VC\Tools\MSVC\%VS_TOOLS_VERSION%
 set DST=%ARG0%\%VS_TOOLS_VERSION%
-md %DST%\bin\HostX86\x64
-md %DST%\bin\HostX86\x86
+md %DST%\bin\HostX64\x64
+md %DST%\bin\HostX64\x86
 xcopy "%SRC%\include" "%DST%\include" /SEYI
 xcopy "%SRC%\lib" "%DST%\lib" /SEYI
 
-set TOOLCHAIN=bin\HostX86\x64
+:: Create HOSTX64 toolchain.
+set TOOLCHAIN=bin\HostX64\x64
 xcopy "%SRC%\%TOOLCHAIN%\1033\clui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
+xcopy "%SRC%\%TOOLCHAIN%\1033\cvtresui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
 xcopy "%SRC%\%TOOLCHAIN%\1033\linkui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
 xcopy "%SRC%\%TOOLCHAIN%\c1.dll" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\c2.dll" "%DST%\%TOOLCHAIN%"
@@ -52,34 +54,32 @@ xcopy "%SRC%\%TOOLCHAIN%\cl.exe" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\lib.exe" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\link.exe" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\ml64.exe" "%DST%\%TOOLCHAIN%"
+xcopy "%SRC%\%TOOLCHAIN%\cvtres.exe" "%DST%\%TOOLCHAIN%"
+xcopy "%SRC%\%TOOLCHAIN%\undname.exe" "%DST%\%TOOLCHAIN%"
+xcopy "%SRC%\%TOOLCHAIN%\d3dcompiler_47.dll" "%DST%\%TOOLCHAIN%"
 :: Required .dll's
-xcopy "%VS_INSTALL_DIR%\Common7\IDE\mspdb140.dll" "%DST%\%TOOLCHAIN%"
+xcopy "%SRC%\%TOOLCHAIN%\mspdb140.dll" "%DST%\%TOOLCHAIN%"
 
-set TOOLCHAIN=bin\HostX86\x86
+set TOOLCHAIN=bin\HostX64\x86
 xcopy "%SRC%\%TOOLCHAIN%\1033\clui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
-xcopy "%SRC%\%TOOLCHAIN%\1033\cvtresui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
 xcopy "%SRC%\%TOOLCHAIN%\1033\linkui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
 xcopy "%SRC%\%TOOLCHAIN%\c1.dll" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\c2.dll" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\c1xx.dll" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\cl.exe" "%DST%\%TOOLCHAIN%"
-xcopy "%SRC%\%TOOLCHAIN%\cvtres.exe" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\lib.exe" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\link.exe" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\ml.exe" "%DST%\%TOOLCHAIN%"
-xcopy "%SRC%\%TOOLCHAIN%\undname.exe" "%DST%\%TOOLCHAIN%"
-xcopy "%SRC%\%TOOLCHAIN%\d3dcompiler_47.dll" "%DST%\%TOOLCHAIN%"
 :: Required .dll's.
-xcopy "%SRC%\%TOOLCHAIN%\mspdb140.dll" "%DST%\%TOOLCHAIN%"
+xcopy "%SRC%\bin\HostX64\x64\mspdb140.dll" "%DST%\%TOOLCHAIN%"
 
-:: Uncomment to create X64 toolchain.
-:::: Create HOSTX64 toolchain.
-::md %ARG0%\%VS_TOOLS_VERSION%\bin\HostX64\x64\1033
-::md %ARG0%\%VS_TOOLS_VERSION%\bin\HostX64\x86\1033
-
-::set TOOLCHAIN=bin\HostX64\x64
+:: ----------------------------------------------------------------------------
+:: Uncomment to create X86 toolchain
+:: ----------------------------------------------------------------------------
+::md %ARG0%\%VS_TOOLS_VERSION%\bin\HostX86\x64\1033
+::md %ARG0%\%VS_TOOLS_VERSION%\bin\HostX86\x86\1033
+::set TOOLCHAIN=bin\HostX86\x64
 ::xcopy "%SRC%\%TOOLCHAIN%\1033\clui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
-::xcopy "%SRC%\%TOOLCHAIN%\1033\cvtresui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
 ::xcopy "%SRC%\%TOOLCHAIN%\1033\linkui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
 ::xcopy "%SRC%\%TOOLCHAIN%\c1.dll" "%DST%\%TOOLCHAIN%"
 ::xcopy "%SRC%\%TOOLCHAIN%\c2.dll" "%DST%\%TOOLCHAIN%"
@@ -88,24 +88,25 @@ xcopy "%SRC%\%TOOLCHAIN%\mspdb140.dll" "%DST%\%TOOLCHAIN%"
 ::xcopy "%SRC%\%TOOLCHAIN%\lib.exe" "%DST%\%TOOLCHAIN%"
 ::xcopy "%SRC%\%TOOLCHAIN%\link.exe" "%DST%\%TOOLCHAIN%"
 ::xcopy "%SRC%\%TOOLCHAIN%\ml64.exe" "%DST%\%TOOLCHAIN%"
-::xcopy "%SRC%\%TOOLCHAIN%\cvtres.exe" "%DST%\%TOOLCHAIN%"
-::xcopy "%SRC%\%TOOLCHAIN%\undname.exe" "%DST%\%TOOLCHAIN%"
-::xcopy "%SRC%\%TOOLCHAIN%\d3dcompiler_47.dll" "%DST%\%TOOLCHAIN%"
 :::: Required .dll's
-::xcopy "%SRC%\%TOOLCHAIN%\mspdb140.dll" "%DST%\%TOOLCHAIN%"
-
-::set TOOLCHAIN=bin\HostX64\x86
+::xcopy "%VS_INSTALL_DIR%\Common7\IDE\mspdb140.dll" "%DST%\%TOOLCHAIN%"
+::set TOOLCHAIN=bin\HostX86\x86
 ::xcopy "%SRC%\%TOOLCHAIN%\1033\clui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
+::xcopy "%SRC%\%TOOLCHAIN%\1033\cvtresui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
 ::xcopy "%SRC%\%TOOLCHAIN%\1033\linkui.dll" "%DST%\%TOOLCHAIN%\1033\" /I
 ::xcopy "%SRC%\%TOOLCHAIN%\c1.dll" "%DST%\%TOOLCHAIN%"
 ::xcopy "%SRC%\%TOOLCHAIN%\c2.dll" "%DST%\%TOOLCHAIN%"
 ::xcopy "%SRC%\%TOOLCHAIN%\c1xx.dll" "%DST%\%TOOLCHAIN%"
 ::xcopy "%SRC%\%TOOLCHAIN%\cl.exe" "%DST%\%TOOLCHAIN%"
+::xcopy "%SRC%\%TOOLCHAIN%\cvtres.exe" "%DST%\%TOOLCHAIN%"
 ::xcopy "%SRC%\%TOOLCHAIN%\lib.exe" "%DST%\%TOOLCHAIN%"
 ::xcopy "%SRC%\%TOOLCHAIN%\link.exe" "%DST%\%TOOLCHAIN%"
 ::xcopy "%SRC%\%TOOLCHAIN%\ml.exe" "%DST%\%TOOLCHAIN%"
+::xcopy "%SRC%\%TOOLCHAIN%\undname.exe" "%DST%\%TOOLCHAIN%"
+::xcopy "%SRC%\%TOOLCHAIN%\d3dcompiler_47.dll" "%DST%\%TOOLCHAIN%"
 :::: Required .dll's.
-::xcopy "%SRC%\bin\HostX64\x64\mspdb140.dll" "%DST%\%TOOLCHAIN%"
+::xcopy "%SRC%\%TOOLCHAIN%\mspdb140.dll" "%DST%\%TOOLCHAIN%"
+
 
 :: Exit with success.
 exit /B 0
