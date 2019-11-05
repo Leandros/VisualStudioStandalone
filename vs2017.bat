@@ -93,7 +93,7 @@ xcopy "%SRC%\%TOOLCHAIN%\d3dcompiler_47.dll" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\%TOOLCHAIN%\mspdb140.dll" "%DST%\%TOOLCHAIN%"
 
 :: Extra tools
-if %WITH_TOOLS%==TRUE (
+if "%WITH_TOOLS%"=="TRUE" (
     xcopy "%SRC%\%TOOLCHAIN%\nmake.exe" "%DST%\%TOOLCHAIN%"
     xcopy "%SRC%\%TOOLCHAIN%\dumpbin.exe" "%DST%\%TOOLCHAIN%"
     xcopy "%SRC%\%TOOLCHAIN%\editbin.exe" "%DST%\%TOOLCHAIN%"
@@ -113,7 +113,7 @@ xcopy "%SRC%\%TOOLCHAIN%\ml.exe" "%DST%\%TOOLCHAIN%"
 xcopy "%SRC%\bin\HostX64\x64\mspdb140.dll" "%DST%\%TOOLCHAIN%"
 
 :: Extra tools
-if %WITH_TOOLS%==TRUE (
+if "%WITH_TOOLS%"=="TRUE" (
     xcopy "%SRC%\%TOOLCHAIN%\dumpbin.exe" "%DST%\%TOOLCHAIN%"
     xcopy "%SRC%\%TOOLCHAIN%\editbin.exe" "%DST%\%TOOLCHAIN%"
 )
